@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddsnm7fwkhy6t"]
+
+[ext_resource type="Script" path="res://Scripts/Globals/SoundsHub.gd" id="1_gsc4f"]
+
+[node name="SoundsHub" type="Node"]
+script = ExtResource("1_gsc4f")
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Music" type="Node" parent="."]

@@ -1,0 +1,232 @@
+[gd_scene load_steps=13 format=3 uid="uid://lf7q612w4q7g"]
+
+[ext_resource type="PackedScene" uid="uid://ddpcmox6tkasp" path="res://Entities/base_enemy.tscn" id="1_ejdnv"]
+[ext_resource type="Shader" path="res://Shaders/recolor.gdshader" id="2_723ef"]
+[ext_resource type="Texture2D" uid="uid://bf2o6kytd0dn6" path="res://Sprites/Characters/Sprites/space-marine/PNG/space-marine-idle.png" id="2_r181i"]
+[ext_resource type="Texture2D" uid="uid://c3cj3vjsnjnv3" path="res://Sprites/Characters/Sprites/space-marine/PNG/space-marine-shoot.png" id="3_4i4xl"]
+[ext_resource type="Texture2D" uid="uid://chamhblxxclfg" path="res://Sprites/Characters/Sprites/space-marine/PNG/space-marine-run.png" id="4_gwqvr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7j07i"]
+shader = ExtResource("2_723ef")
+shader_parameter/original_0 = Color(0.87451, 0.501961, 0.184314, 1)
+shader_parameter/original_1 = Color(0.764706, 0.356863, 0.117647, 1)
+shader_parameter/original_2 = Color(0.603922, 0.219608, 0.0745098, 1)
+shader_parameter/original_3 = Color(0.27451, 0.0470588, 0.121569, 1)
+shader_parameter/original_4 = Color(0.490196, 0.137255, 0.054902, 1)
+shader_parameter/original_5 = Color(0.0862745, 0.0392157, 0.121569, 1)
+shader_parameter/original_6 = Color(0.160784, 0.105882, 0.203922, 1)
+shader_parameter/original_7 = Color(0.45098, 0.368627, 0.505882, 1)
+shader_parameter/original_8 = Color(0, 0, 0, 1)
+shader_parameter/replace_0 = Color(0.321569, 0.647059, 0.839216, 1)
+shader_parameter/replace_1 = Color(0.203922, 0.533333, 0.67451, 1)
+shader_parameter/replace_2 = Color(0.054902, 0.396078, 0.517647, 1)
+shader_parameter/replace_3 = Color(0.0313726, 0.168627, 0.180392, 1)
+shader_parameter/replace_4 = Color(0.0745098, 0.298039, 0.415686, 1)
+shader_parameter/replace_5 = Color(0.0588235, 0.0705882, 0.00784314, 1)
+shader_parameter/replace_6 = Color(0.152941, 0.133333, 0.027451, 1)
+shader_parameter/replace_7 = Color(0.431373, 0.415686, 0.176471, 1)
+shader_parameter/replace_8 = null
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iorhf"]
+radius = 9.8
+height = 36.95
+
+[sub_resource type="Animation" id="Animation_avejx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_r181i")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_qo5iy"]
+resource_name = "attack"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_4i4xl")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_4xhho"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_r181i")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_ujyk4"]
+resource_name = "move"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_gwqvr")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yr4pg"]
+_data = {
+"RESET": SubResource("Animation_avejx"),
+"attack": SubResource("Animation_qo5iy"),
+"idle": SubResource("Animation_4xhho"),
+"move": SubResource("Animation_ujyk4")
+}
+
+[node name="soldier" instance=ExtResource("1_ejdnv")]
+material = SubResource("ShaderMaterial_7j07i")
+sprite_offset = Vector2(10, 0)
+
+[node name="bullet_point" parent="." index="1"]
+position = Vector2(20, 0)
+
+[node name="sprite" parent="." index="2"]
+texture = ExtResource("2_r181i")
+offset = Vector2(10, 0)
+hframes = 4
+
+[node name="collision_shape" parent="." index="4"]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_iorhf")
+
+[node name="anim_player_main" type="AnimationPlayer" parent="." index="6"]
+libraries = {
+"": SubResource("AnimationLibrary_yr4pg")
+}
+
+[node name="anim_player" parent="." index="10"]
+libraries = {
+"": SubResource("AnimationLibrary_yr4pg")
+}
+
+[node name="anim_tree" parent="." index="11"]
+anim_player = NodePath("../anim_player_main")

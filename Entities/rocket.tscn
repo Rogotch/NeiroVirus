@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccjij56q48ql"]
+
+[ext_resource type="PackedScene" uid="uid://dkf0bu5m251h2" path="res://Entities/bullet.tscn" id="1_nmctk"]
+[ext_resource type="Script" path="res://Scripts/Entities/rocket.gd" id="2_3mns0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0n5v3"]
+
+[node name="rocket" node_paths=PackedStringArray("damage_area", "damage_area_shape") instance=ExtResource("1_nmctk")]
+script = ExtResource("2_3mns0")
+damage_area = NodePath("damage_area")
+damage_area_shape = NodePath("damage_area/damage_area_shape")
+
+[node name="damage_area" type="Area2D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="damage_area_shape" type="CollisionShape2D" parent="damage_area" index="0"]
+shape = SubResource("CircleShape2D_0n5v3")

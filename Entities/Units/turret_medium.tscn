@@ -1,0 +1,97 @@
+[gd_scene load_steps=9 format=3 uid="uid://2u64oknshx2c"]
+
+[ext_resource type="PackedScene" uid="uid://c4qo3mhlfsp26" path="res://Entities/base_turret.tscn" id="1_ifnqm"]
+[ext_resource type="Texture2D" uid="uid://c4qyjeymm2if1" path="res://Sprites/Characters/turrets.png" id="2_kuf8j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1y1x0"]
+size = Vector2(30, 30)
+
+[sub_resource type="Animation" id="Animation_0v8pr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_6111e"]
+resource_name = "attack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 6]
+}
+
+[sub_resource type="Animation" id="Animation_qg3oo"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_xfhr4"]
+resource_name = "move"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u1nei"]
+_data = {
+"RESET": SubResource("Animation_0v8pr"),
+"attack": SubResource("Animation_6111e"),
+"idle": SubResource("Animation_qg3oo"),
+"move": SubResource("Animation_xfhr4")
+}
+
+[node name="turret_medium" instance=ExtResource("1_ifnqm")]
+id = 6
+
+[node name="sprite" parent="." index="3"]
+offset = Vector2(-0.5, -0.5)
+hframes = 5
+vframes = 3
+frame = 5
+
+[node name="weapon_sprite" parent="sprite" index="0"]
+texture = ExtResource("2_kuf8j")
+offset = Vector2(-0.5, -0.5)
+hframes = 5
+vframes = 3
+frame = 6
+
+[node name="bullet_point" parent="sprite/weapon_sprite" index="0"]
+position = Vector2(26, 0)
+
+[node name="collision_shape" parent="." index="5"]
+shape = SubResource("RectangleShape2D_1y1x0")
+
+[node name="anim_player_main" type="AnimationPlayer" parent="." index="9"]
+root_node = NodePath("../sprite")
+libraries = {
+"": SubResource("AnimationLibrary_u1nei")
+}
+
+[node name="anim_tree" parent="." index="12"]
+anim_player = NodePath("../anim_player_main")

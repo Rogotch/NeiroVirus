@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4qo3mhlfsp26"]
+
+[ext_resource type="PackedScene" uid="uid://ddpcmox6tkasp" path="res://Entities/base_enemy.tscn" id="1_gbll5"]
+[ext_resource type="Script" path="res://Scripts/Entities/Units/base_turret.gd" id="2_al5qw"]
+[ext_resource type="Shader" path="res://Shaders/recolor.gdshader" id="2_mll6c"]
+[ext_resource type="Texture2D" uid="uid://c4qyjeymm2if1" path="res://Sprites/Characters/turrets.png" id="4_jnjbu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b3b1k"]
+shader = ExtResource("2_mll6c")
+shader_parameter/original_0 = Color(0.870588, 0.443137, 0.14902, 1)
+shader_parameter/original_1 = Color(0.709804, 0.392157, 0.172549, 1)
+shader_parameter/original_2 = Color(0.996078, 0.584314, 0.309804, 1)
+shader_parameter/original_3 = Color(0.266667, 0.184314, 0.12549, 1)
+shader_parameter/original_4 = Color(0.121569, 0.121569, 0.121569, 1)
+shader_parameter/original_5 = Color(0.203922, 0.203922, 0.203922, 1)
+shader_parameter/original_6 = null
+shader_parameter/original_7 = null
+shader_parameter/original_8 = null
+shader_parameter/replace_0 = Color(0.207843, 0.627451, 0.803922, 1)
+shader_parameter/replace_1 = Color(0.239216, 0.513726, 0.698039, 1)
+shader_parameter/replace_2 = Color(0.203922, 0.768627, 0.964706, 1)
+shader_parameter/replace_3 = Color(0.141176, 0.207843, 0.301961, 1)
+shader_parameter/replace_4 = Color(0.121569, 0.121569, 0.121569, 1)
+shader_parameter/replace_5 = Color(0.203922, 0.203922, 0.203922, 1)
+shader_parameter/replace_6 = Color(0, 0, 0, 1)
+shader_parameter/replace_7 = null
+shader_parameter/replace_8 = null
+
+[node name="base_turret" node_paths=PackedStringArray("weapon_sprite", "bullet_point") instance=ExtResource("1_gbll5")]
+material = SubResource("ShaderMaterial_b3b1k")
+script = ExtResource("2_al5qw")
+weapon_sprite = NodePath("sprite/weapon_sprite")
+bullet_point = NodePath("sprite/weapon_sprite/bullet_point")
+
+[node name="sprite" parent="." index="3"]
+texture = ExtResource("4_jnjbu")
+
+[node name="weapon_sprite" type="Sprite2D" parent="sprite" index="0"]
+use_parent_material = true
+
+[node name="bullet_point" type="Node2D" parent="sprite/weapon_sprite" index="0"]

@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://2fas3d62r4oy"]
+
+[sub_resource type="GDScript" id="1"]
+resource_name = "localization_switcher"
+script/source = "extends GridContainer
+
+@export var localization_keys  : Array[String]
+@export var localization_flags : Array[Texture2D]
+@export var flag_size : Vector2
+
+func _ready() -> void:
+	print(TranslationServer.get_locale())
+#	columns = localization_keys.size()
+	set_flags()
+	pass
+
+func set_flags():
+	for i in localization_keys.size():
+		var new_button = TextureButton.new()
+		add_child(new_button)
+		new_button.custom_minimum_size = flag_size
+		new_button.size_flags_stretch_ratio = SIZE_EXPAND
+		new_button.stretch_mode = 5
+		new_button.size_flags_horizontal = 6
+		new_button.size_flags_vertical   = 6
+		new_button.texture_normal = localization_flags[i]
+		new_button.connect(\"pressed\", Callable(self, \"set_localization\").bind(new_button, localization_keys[i]))
+	set_locale(TranslationServer.get_locale())
+	pass
+
+func set_localization(button, key):
+	for flag in get_children():
+		flag.modulate = Color.DARK_GRAY if flag != button else Color.WHITE
+	TranslationServer.set_locale(key)
+	get_tree().call_group(\"localization\", \"localization\")
+	pass
+
+func set_locale(key):
+	for i in get_child_count():
+		var flag = get_child(i)
+#		prints(localization_keys[i], key, localization_keys[i] != key)
+		flag.modulate = Color.DARK_GRAY if localization_keys[i] != key else Color.WHITE
+	pass
+"
+
+[node name="language_switcher" type="GridContainer"]
+offset_right = 200.0
+columns = 2
+script = SubResource("1")
+localization_keys = Array[String](["ru", "en"])
+localization_flags = Array[Texture2D]([null, null])
+flag_size = Vector2(100, 40)

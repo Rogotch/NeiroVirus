@@ -1,0 +1,139 @@
+[gd_scene load_steps=11 format=3 uid="uid://jsx242nmtklx"]
+
+[ext_resource type="PackedScene" uid="uid://ddpcmox6tkasp" path="res://Entities/base_enemy.tscn" id="1_dc610"]
+[ext_resource type="Shader" path="res://Shaders/recolor.gdshader" id="2_oguqv"]
+[ext_resource type="Texture2D" uid="uid://cprgs1jx6k6sx" path="res://Sprites/Characters/Sprites/bipedal-Unit/PNG/bipedal-unit-sheet.png" id="2_tgvsk"]
+[ext_resource type="Script" path="res://Scripts/Entities/Units/tank.gd" id="3_8gvaj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cfkvq"]
+shader = ExtResource("2_oguqv")
+shader_parameter/original_0 = Color(0.996078, 0.690196, 0.2, 1)
+shader_parameter/original_1 = Color(0.764706, 0.4, 0.0392157, 1)
+shader_parameter/original_2 = Color(0.247059, 0.0156863, 0.00392157, 1)
+shader_parameter/original_3 = Color(0.996078, 0.811765, 0.501961, 1)
+shader_parameter/original_4 = Color(0.956863, 0.552941, 0.219608, 1)
+shader_parameter/original_5 = Color(0.478431, 0.105882, 0.0156863, 1)
+shader_parameter/original_6 = Color(0.709804, 0.278431, 0.133333, 1)
+shader_parameter/original_7 = Color(0.627451, 0.219608, 0, 1)
+shader_parameter/original_8 = Color(0.0784314, 0.00392157, 0.00784314, 1)
+shader_parameter/replace_0 = Color(0.431373, 0.811765, 1, 1)
+shader_parameter/replace_1 = Color(0, 0.572549, 0.67451, 1)
+shader_parameter/replace_2 = Color(0, 0.145098, 0.109804, 1)
+shader_parameter/replace_3 = Color(0.643137, 0.886275, 0.988235, 1)
+shader_parameter/replace_4 = Color(0.203922, 0.737255, 0.886275, 1)
+shader_parameter/replace_5 = Color(0.0156863, 0.305882, 0.290196, 1)
+shader_parameter/replace_6 = Color(0.101961, 0.47451, 0.615686, 1)
+shader_parameter/replace_7 = Color(0, 0.435294, 0.376471, 1)
+shader_parameter/replace_8 = Color(0.00392157, 0.0313726, 0.0431373, 1)
+
+[sub_resource type="Animation" id="Animation_8eu6y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_4o10u"]
+resource_name = "attack"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_7ttxn"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10]
+}
+
+[sub_resource type="Animation" id="Animation_btclt"]
+resource_name = "move"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 18, 19, 20]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6etwl"]
+_data = {
+"RESET": SubResource("Animation_8eu6y"),
+"attack": SubResource("Animation_4o10u"),
+"idle": SubResource("Animation_7ttxn"),
+"move": SubResource("Animation_btclt")
+}
+
+[node name="tank" instance=ExtResource("1_dc610")]
+material = SubResource("ShaderMaterial_cfkvq")
+script = ExtResource("3_8gvaj")
+id = 2
+sprite_offset = Vector2(-6, 0)
+
+[node name="ui" parent="." index="0"]
+offset_left = 11.0
+offset_right = 51.0
+
+[node name="Label" type="Label" parent="ui" index="2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="bullet_point" parent="." index="2"]
+position = Vector2(24, 8)
+
+[node name="sprite" parent="." index="3"]
+texture = ExtResource("2_tgvsk")
+offset = Vector2(-6, 0)
+hframes = 7
+vframes = 3
+frame = 7
+
+[node name="anim_player_main" type="AnimationPlayer" parent="." index="6"]
+libraries = {
+"": SubResource("AnimationLibrary_6etwl")
+}
+
+[node name="anim_player" parent="." index="11"]
+libraries = {
+"": SubResource("AnimationLibrary_6etwl")
+}
+
+[node name="anim_tree" parent="." index="12"]
+anim_player = NodePath("../anim_player_main")

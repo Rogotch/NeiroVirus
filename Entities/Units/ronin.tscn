@@ -1,0 +1,148 @@
+[gd_scene load_steps=13 format=3 uid="uid://bffakcotlqhr"]
+
+[ext_resource type="PackedScene" uid="uid://ddpcmox6tkasp" path="res://Entities/base_enemy.tscn" id="1_htedv"]
+[ext_resource type="Shader" path="res://Shaders/recolor.gdshader" id="2_aung8"]
+[ext_resource type="Texture2D" uid="uid://c5n6541j2br0l" path="res://Sprites/Characters/vagabond/assets/aseprite-files/homeless-vagabond.png" id="2_oopoi"]
+[ext_resource type="Script" path="res://Scripts/Entities/Units/ronin.gd" id="3_jb3bj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mlr1y"]
+shader = ExtResource("2_aung8")
+shader_parameter/original_0 = Color(0.4, 0.223529, 0.192157, 1)
+shader_parameter/original_1 = Color(0.670588, 0.196078, 0.196078, 1)
+shader_parameter/original_2 = Color(0.270588, 0.156863, 0.235294, 1)
+shader_parameter/original_3 = Color(0.372549, 0.8, 0.890196, 1)
+shader_parameter/original_4 = null
+shader_parameter/original_5 = null
+shader_parameter/original_6 = null
+shader_parameter/original_7 = null
+shader_parameter/original_8 = null
+shader_parameter/replace_0 = Color(0.129412, 0.282353, 0.466667, 1)
+shader_parameter/replace_1 = Color(0.380392, 0.517647, 0.239216, 1)
+shader_parameter/replace_2 = Color(0.105882, 0.227451, 0.196078, 1)
+shader_parameter/replace_3 = Color(0.490196, 0.823529, 0.517647, 1)
+shader_parameter/replace_4 = null
+shader_parameter/replace_5 = null
+shader_parameter/replace_6 = null
+shader_parameter/replace_7 = null
+shader_parameter/replace_8 = null
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stcc1"]
+radius = 50.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c18i4"]
+radius = 7.25
+height = 49.0
+
+[sub_resource type="Animation" id="Animation_pffkr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+
+[sub_resource type="Animation" id="Animation_pha4g"]
+resource_name = "attack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_cgr3g"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+step = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_fuo8g"]
+resource_name = "move"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hfmua"]
+_data = {
+"RESET": SubResource("Animation_pffkr"),
+"attack": SubResource("Animation_pha4g"),
+"idle": SubResource("Animation_cgr3g"),
+"move": SubResource("Animation_fuo8g")
+}
+
+[node name="ronin" node_paths=PackedStringArray("damage_area") instance=ExtResource("1_htedv")]
+material = SubResource("ShaderMaterial_mlr1y")
+script = ExtResource("3_jb3bj")
+damage_area = NodePath("damage_area")
+damage_area_shape = SubResource("CircleShape2D_stcc1")
+id = 1
+
+[node name="damage_area" type="Area2D" parent="." index="0"]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="damage_area_shape" type="CollisionShape2D" parent="damage_area" index="0"]
+shape = SubResource("CircleShape2D_stcc1")
+
+[node name="sprite" parent="." index="3"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_oopoi")
+hframes = 8
+vframes = 3
+frame = 16
+
+[node name="collision_shape" parent="." index="5"]
+shape = SubResource("CapsuleShape2D_c18i4")
+
+[node name="anim_player_main" type="AnimationPlayer" parent="." index="7"]
+libraries = {
+"": SubResource("AnimationLibrary_hfmua")
+}
+
+[node name="anim_player" parent="." index="11"]
+libraries = {
+"": SubResource("AnimationLibrary_hfmua")
+}
+
+[node name="anim_tree" parent="." index="12"]
+anim_player = NodePath("../anim_player_main")
+
+[connection signal="body_entered" from="damage_area" to="." method="_on_damage_area_body_entered"]

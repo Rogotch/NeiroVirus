@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbl53m8n826ko"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/room_detector.gd" id="1_qiywq"]
+
+[node name="room_detector" type="Area2D"]
+monitorable = false
+script = ExtResource("1_qiywq")
+
+[node name="collision_polygon" type="CollisionPolygon2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://c68petin4noqo"]
+
+[ext_resource type="Script" path="res://Scripts/Globals/WinHud.gd" id="1_y3vfn"]
+
+[node name="WinHud" type="CanvasLayer" node_paths=PackedStringArray("hud_layer", "ui_layer", "wins_layer", "pause_layer")]
+script = ExtResource("1_y3vfn")
+hud_layer = NodePath("hud_layer")
+ui_layer = NodePath("ui_layer")
+wins_layer = NodePath("wins_layer")
+pause_layer = NodePath("pause_layer")
+
+[node name="hud_layer" type="CanvasLayer" parent="."]
+
+[node name="wins_layer" type="CanvasLayer" parent="."]
+
+[node name="ui_layer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="pause_layer" type="CanvasLayer" parent="."]
+visible = false

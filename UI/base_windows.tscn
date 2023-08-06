@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://yufo2dnrad63"]
+
+[ext_resource type="Script" path="res://Scripts/UI/base_windows.gd" id="1_ip2a5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hqlcr"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_7tjig"]
+font_size = 32
+
+[node name="base_windows" type="Control" node_paths=PackedStringArray("title", "center_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ip2a5")
+title = NodePath("center_container/main_body/VBoxContainer/title")
+center_container = NodePath("center_container")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="center_container" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="main_body" type="Control" parent="center_container"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="center_container/main_body"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="title" type="Label" parent="center_container/main_body/VBoxContainer"]
+layout_mode = 2
+text = "Title"
+label_settings = SubResource("LabelSettings_hqlcr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="button" type="TextureButton" parent="center_container/main_body/VBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="txt" type="Label" parent="center_container/main_body/VBoxContainer/button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "button
+"
+label_settings = SubResource("LabelSettings_7tjig")
+horizontal_alignment = 1
+vertical_alignment = 1

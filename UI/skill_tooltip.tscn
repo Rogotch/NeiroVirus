@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr0iqgef7yd6u"]
+
+[ext_resource type="Texture2D" uid="uid://illkrvjc6yr" path="res://icon.svg" id="1_3jth7"]
+[ext_resource type="Script" path="res://Scripts/UI/skill_tooltip.gd" id="1_ljfoi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jvtqi"]
+font_size = 32
+font_color = Color(0.733333, 0.537255, 0.243137, 1)
+
+[node name="skill_tooltip" type="Control" node_paths=PackedStringArray("content", "title_text", "full_text")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 222.0
+offset_bottom = 136.0
+script = ExtResource("1_ljfoi")
+content = NodePath("content")
+title_text = NodePath("content/v_box/title_container/title_text")
+full_text = NodePath("content/v_box/full_text")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_3jth7")
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 14
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="content" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="v_box" type="VBoxContainer" parent="content"]
+layout_mode = 2
+alignment = 1
+
+[node name="title_container" type="HBoxContainer" parent="content/v_box"]
+layout_mode = 2
+alignment = 1
+
+[node name="title_text" type="Label" parent="content/v_box/title_container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Навык"
+label_settings = SubResource("LabelSettings_jvtqi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="full_text" type="RichTextLabel" parent="content/v_box"]
+custom_minimum_size = Vector2(190, 0)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+tab_size = 6
